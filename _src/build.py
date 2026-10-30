@@ -30,6 +30,13 @@ def ext(href, text, cls=""):
     return f'<a{c} href="{href}" target="_blank" rel="noopener">{esc(text)}</a>'
 
 
+def asset_version(rel):
+    """Short content hash so browsers fetch the new file right after an update."""
+    import hashlib
+    with open(os.path.join(ROOT, rel), "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()[:8]
+
+
 def head(title, description, path):
     return f"""<!doctype html>
 <html lang="en">
@@ -47,7 +54,7 @@ def head(title, description, path):
 <link rel="icon" type="image/png" href="/assets/img/favicon.png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/style.css?v={asset_version('assets/css/style.css')}">
 </head>
 """
 
@@ -77,7 +84,7 @@ def page(title, description, path, body_cls, main):
     return head(title, description, path) + f"""<body class="{body_cls}">
 {header()}<main>
 {main}</main>
-<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/main.js?v={asset_version('assets/js/main.js')}" defer></script>
 </body>
 </html>
 """
