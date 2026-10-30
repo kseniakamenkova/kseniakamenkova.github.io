@@ -106,8 +106,9 @@ CASES = {
         ],
     },
     "referral": {
-        "title": "Referral program for both referrers and referred users",
+        "title": "Referral program for both users:\nreferrers and referred",
         "meta": ["redesign", "skyeng", "2025"],
+        "wide_title": True,
         "description": "A unified, points-based referral program for Skyeng: referral revenue grew from 4% to 11%, blended CAC down 18%.",
         "intro": [
             ("section", "Overview", [
@@ -150,7 +151,8 @@ CASES = {
             ("row", 3),
             ("section", "Process", [
                 ("groups", [
-                    ("DESIGNED NEW LANDINGS PAGES", "Created dedicated landing pages for both adult and kids’ products, giving invited users relevant information, an explanation of how the referral program works, and a clear path to apply"),
+                    ("DESIGNED NEW LANDINGS PAGES", "Created dedicated landing pages for both adult and kids’ products, giving invited users relevant information, an explanation of how the referral program works, and a clear path to apply."),
+                    ("CREATED A NEW TOOL FOR MARKETING", "These landing pages and the referral page in the personal account became key tools for the marketing team to communicate promotional campaigns and special offers to users."),
                     ("DESIGNED EMAILS AND STORIES", "I designed a series of emails and in-app stories to communicate the new referral program, encourage participation, and increase user engagement."),
                 ]),
             ]),

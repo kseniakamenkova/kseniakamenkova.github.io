@@ -230,7 +230,7 @@
     },
     {
      "src": "/assets/img/referral/row3-5.webp",
-     "w": 800,
+     "w": 1189,
      "h": 590,
      "r": 16
     }
@@ -408,24 +408,18 @@
     },
     {
      "src": "/assets/img/payment-widget/row3-2.webp",
-     "w": 563.5,
-     "h": 667.7,
+     "w": 1150,
+     "h": 870,
      "r": 0
     },
     {
      "src": "/assets/img/payment-widget/row3-3.webp",
-     "w": 563.5,
-     "h": 667.3,
-     "r": 0
-    },
-    {
-     "src": "/assets/img/payment-widget/row3-4.webp",
      "w": 1213,
      "h": 870,
      "r": 16
     },
     {
-     "src": "/assets/img/payment-widget/row3-5.webp",
+     "src": "/assets/img/payment-widget/row3-4.webp",
      "w": 925,
      "h": 870,
      "r": 16

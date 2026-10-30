@@ -224,7 +224,7 @@ def case(slug):
 </div>
 <div class="case">
   <div class="container case-head">
-    <h1 class="{title_cls}">{esc(c['title'])}</h1>
+    <h1 class="{title_cls}">{esc(c['title']).replace(chr(10), '<br>')}</h1>
     <p class="case-head__meta">{''.join(meta)}</p>
   </div>
   <div class="case-flow">
@@ -233,7 +233,7 @@ def case(slug):
   </div>
 </div>
 """
-    return page(f"{c['title']} — Ksenia Kamenkova", c["description"], f"/{slug}/", "page-case", main)
+    return page(f"{c['title'].replace(chr(10), ' ')} — Ksenia Kamenkova", c["description"], f"/{slug}/", "page-case", main)
 
 
 def relativize(text, depth, root_page=False):
