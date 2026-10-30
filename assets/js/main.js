@@ -39,3 +39,12 @@ document.querySelectorAll('.rail--scroll .rail__track').forEach((track) => {
     track.scrollBy({ left: step, behavior: smooth ? 'smooth' : 'auto' });
   });
 });
+
+// Sticky header: a hairline appears once the page is scrolled.
+(() => {
+  const header = document.querySelector('.site-header');
+  if (!header) return;
+  const update = () => header.classList.toggle('is-scrolled', window.scrollY > 4);
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+})();

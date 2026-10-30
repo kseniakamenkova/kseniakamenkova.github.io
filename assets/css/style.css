@@ -78,13 +78,19 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
 }
 
 /* ---------- header ---------- */
+/* Full-width white bar that stays at the top while scrolling; links keep their Figma position. */
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   height: 76px;
-  width: min(1244px, calc(100% - 32px));
-  margin-inline: auto;
+  padding-inline: max(16px, calc((100% - 1244px) / 2));
+  background: var(--bg);
   display: flex;
   justify-content: flex-end;
+  transition: box-shadow 0.2s ease;
 }
+.site-header.is-scrolled { box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06); }
 .site-header__links {
   margin-top: 28px;
   display: flex;
