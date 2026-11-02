@@ -433,7 +433,7 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
 
   .contact__img { width: 100px; height: 126px; }
   .contact__br { display: inline; }
-  .contact__title { font-size: 26px; line-height: 32px; }
+  .contact__title { font-size: 24px; line-height: 30px; }
   .contact__line { font-size: 16px; line-height: 24px; white-space: normal; }
 }
 
@@ -453,7 +453,7 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
 
   /* sections: heading on top, a thin line, then the text */
   .section { flex-direction: column; gap: 16px; }
-  .section__title { flex: none; font-size: 22px; line-height: 26px; font-weight: 500; }
+  .section__title { flex: none; font-size: 24px; line-height: 30px; font-weight: 500; }
   .section__body { flex: none; width: 100%; padding-left: 0; padding-top: 17px; gap: 12px; }
   .section__body::before { top: 0; right: 0; bottom: auto; width: auto; height: 1px; }
   .section--untitled { gap: 0; }
