@@ -97,15 +97,22 @@ def home():
     for c in h["cards"]:
         bx, by, bw, bhh = c["crop"]["box"]
         iw, ih, il, it = c["crop"]["img"]
-        metrics = "".join(f'<div class="metric"><p class="metric__value">{esc(v)}</p><p class="metric__label">{esc(l)}</p></div>' for v, l in c["metrics"])
+        mbx, mby, mbw, mbh = c["mcrop"]["box"]
+        miw, mih, mil, mit = c["mcrop"]["img"]
+        mk = lambda ms: "".join(f'<div class="metric"><p class="metric__value">{esc(v)}</p><p class="metric__label">{esc(l)}</p></div>' for v, l in ms)
+        metrics = mk(c["metrics"])
+        mmetrics = mk(c.get("mmetrics", c["metrics"]))
+        crop_vars = f"--x:{bx}px;--y:{by}px;--w:{bw}px;--h:{bhh}px;--mx:{mbx}px;--my:{mby}px;--mw:{mbw}px;--mh:{mbh}px"
+        img_vars = f"--iw:{iw};--ih:{ih};--il:{il};--it:{it};--miw:{miw};--mih:{mih};--mil:{mil};--mit:{mit}"
         cards.append(f"""      <article class="project">
         <a class="project__card" href="/{c['slug']}/" aria-label="Open case study: {esc(c['label'])}">
           <span class="project__year">{esc(c['year'])}</span>
           <span class="project__label">{esc(c['label'])}</span>
           <span class="project__btn" aria-hidden="true"><img src="/assets/img/arrow-card.svg" alt="" width="17" height="17"></span>
+          <div class="project__card-metrics">{mmetrics}</div>
           <span class="project__media" aria-hidden="true">
-            <span class="project__crop" style="left:{bx}px;top:{by}px;width:{bw}px;height:{bhh}px">
-              <img src="/assets/img/home/{c['img']}.webp" alt="" style="width:{iw};height:{ih};left:{il};top:{it}" loading="lazy">
+            <span class="project__crop" style="{crop_vars}">
+              <img src="/assets/img/home/{c['img']}.webp" alt="" style="{img_vars}" loading="lazy">
             </span>
           </span>
         </a>

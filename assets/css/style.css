@@ -187,8 +187,17 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
   height: 400px;
   overflow: hidden;
 }
-.project__crop { position: absolute; overflow: hidden; }
-.project__crop img { position: absolute; max-width: none; }
+.project__crop {
+  position: absolute;
+  overflow: hidden;
+  left: var(--x); top: var(--y); width: var(--w); height: var(--h);
+}
+.project__crop img {
+  position: absolute;
+  max-width: none;
+  width: var(--iw); height: var(--ih); left: var(--il); top: var(--it);
+}
+.project__card-metrics { display: none; }
 .project__text { color: var(--muted); }
 .project__line { height: 2px; border-radius: 8px; background: var(--surface); }
 .project__metrics { display: flex; gap: 44px; flex-wrap: wrap; }
@@ -372,6 +381,58 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
   .section { flex-direction: column; gap: 16px; }
   .section__title { flex-basis: auto; }
   .section__body { flex-basis: auto; width: 100%; }
+}
+
+/* ---------- phones: main page follows the Figma frame "main page mob" (390px) ---------- */
+@media (max-width: 767px) {
+  .site-header { height: 64px; }
+  .site-header__links { margin-top: 20px; }
+  .container { width: calc(100% - 32px); }
+
+  .home { margin-top: 36px; gap: 52px; padding-bottom: 32px; }
+  .hello { gap: 24px; }
+  .hello__avatar { width: 116px; height: 116px; border-radius: 31.32px; }
+  .hello__text { gap: 16px; }
+  .hello__title { font-size: 32px; line-height: 40px; }
+  .hello__intro { font-size: 16px; line-height: 22px; color: rgba(0, 0, 0, 0.54); gap: 0; }
+
+  .projects { gap: 24px; }
+  .projects__title { font-size: 32px; line-height: 40px; }
+  .projects__grid { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
+
+  .project { gap: 12px; }
+  .project__card { height: 403px; border-radius: 24px; }
+  .project__card:hover { background: var(--surface); }
+  .project__year, .project__label { left: 20px; width: 177px; font-size: 16px; line-height: 22px; }
+  .project__year { top: 20px; }
+  .project__label { top: 50px; }
+  .project__btn { display: none; }
+
+  .project__card-metrics {
+    position: absolute;
+    left: 20px;
+    top: 104px;
+    width: 170px; /* Figma: 169px; +1px so "application conversion" fits on one line in browsers too */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .project__card-metrics .metric { gap: 4px; }
+  .project__card-metrics .metric__value { font-size: 26px; line-height: 32px; white-space: nowrap; }
+
+  /* the phone mockup sits in a 161 x 287 area at the card's right edge, as in Figma */
+  .project__media { top: 104px; width: 161px; height: 287px; overflow: visible; }
+  .project__crop { left: var(--mx); top: var(--my); width: var(--mw); height: var(--mh); }
+  .project__crop img { width: var(--miw); height: var(--mih); left: var(--mil); top: var(--mit); }
+
+  .project__info { gap: 12px; }
+  .project__line { order: -1; }
+  .project__metrics { display: none; }
+  .project__text { font-size: 16px; line-height: 22px; color: rgba(0, 0, 0, 0.54); }
+
+  .contact__img { width: 116px; height: 147px; }
+  .contact__title { font-size: 26px; line-height: 32px; }
+  .contact__line { font-size: 16px; line-height: 24px; white-space: normal; }
 }
 
 @media (prefers-reduced-motion: reduce) {
