@@ -198,6 +198,7 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
   width: var(--iw); height: var(--ih); left: var(--il); top: var(--it);
 }
 .project__card-metrics { display: none; }
+.contact__br { display: none; }
 .project__text { color: var(--muted); }
 .project__line { height: 2px; border-radius: 8px; background: var(--surface); }
 .project__metrics { display: flex; gap: 44px; flex-wrap: wrap; }
@@ -430,7 +431,8 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
   .project__metrics { display: none; }
   .project__text { font-size: 16px; line-height: 22px; color: rgba(0, 0, 0, 0.54); }
 
-  .contact__img { width: 116px; height: 147px; }
+  .contact__img { width: 84px; height: 106.1px; }
+  .contact__br { display: inline; }
   .contact__title { font-size: 26px; line-height: 32px; }
   .contact__line { font-size: 16px; line-height: 24px; white-space: normal; }
 }

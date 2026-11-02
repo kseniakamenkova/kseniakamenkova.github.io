@@ -74,7 +74,7 @@ def contact():
   <img class="contact__img" src="/assets/img/shiba.webp" alt="" width="140" height="177" loading="lazy">
   <div class="contact__text">
     <h2 class="contact__title">Thank you</h2>
-    <p class="contact__line">Feel free to reach out via {ext(LINKEDIN, "LinkedIn", "u")} or telegram {ext(TELEGRAM, "@kskamenkova", "plain")}</p>
+    <p class="contact__line">Feel free to reach out via {ext(LINKEDIN, "LinkedIn", "u")}<br class="contact__br"> or telegram {ext(TELEGRAM, "@kskamenkova", "plain")}</p>
   </div>
 </section>
 """
