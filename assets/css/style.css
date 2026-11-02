@@ -392,13 +392,13 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
 
   .home { margin-top: 36px; gap: 52px; padding-bottom: 32px; }
   .hello { gap: 24px; }
-  .hello__avatar { width: 116px; height: 116px; border-radius: 31.32px; }
-  .hello__text { gap: 16px; }
-  .hello__title { font-size: 32px; line-height: 40px; }
+  .hello__avatar { width: 140px; height: 140px; border-radius: 37.8px; }
+  .hello__text { gap: 12px; }
+  .hello__title { font-size: 28px; line-height: 32px; }
   .hello__intro { font-size: 16px; line-height: 22px; color: rgba(0, 0, 0, 0.54); gap: 0; }
 
   .projects { gap: 24px; }
-  .projects__title { font-size: 32px; line-height: 40px; }
+  .projects__title { font-size: 28px; line-height: 32px; }
   .projects__grid { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
 
   .project { gap: 12px; }
@@ -443,9 +443,9 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
 /* ---------- phones: case pages follow the Figma mobile frames (390px) ---------- */
 @media (max-width: 767px) {
   .back { margin-top: 36px; font-size: 16px; line-height: 22px; }
-  .case { margin-top: 32px; gap: 52px; padding-bottom: 32px; }
+  .case { margin-top: 32px; gap: 32px; padding-bottom: 32px; }
   .case-head { gap: 8px; }
-  .case-head__title, .case-head__title--wide { max-width: none; font-size: 32px; line-height: 40px; }
+  .case-head__title, .case-head__title--wide { max-width: none; font-size: 28px; line-height: 32px; font-weight: 600; }
   .case-head__meta { color: rgba(0, 0, 0, 0.54); }
 
   .case-flow { gap: 24px; }
@@ -453,7 +453,7 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
 
   /* sections: heading on top, a thin line, then the text */
   .section { flex-direction: column; gap: 16px; }
-  .section__title { flex: none; font-size: 26px; line-height: 32px; }
+  .section__title { flex: none; font-size: 22px; line-height: 26px; font-weight: 500; }
   .section__body { flex: none; width: 100%; padding-left: 0; padding-top: 17px; gap: 12px; }
   .section__body::before { top: 0; right: 0; bottom: auto; width: auto; height: 1px; }
   .section--untitled { gap: 0; }
@@ -467,6 +467,7 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
   .section .metric__value { font-size: 24px; line-height: 32px; }
   .section .metric__label { color: rgba(0, 0, 0, 0.54); }
   .groups { gap: 24px; }
+  .group__title { font-size: 16px; line-height: 22px; }
   .review__quote { width: 37px; height: 30px; }
   .review__role { color: rgba(27, 25, 23, 0.54); }
   .review__text { gap: 22px; }
@@ -483,7 +484,7 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
   .case--mobile .case-flow > *, .case--mobile .case-intro > * { order: var(--mo, 999); }
   .case--mobile [data-m="hide"] { display: none; }
   .case--mobile [data-m="break"] { margin-top: 30px; }
-  .case--mobile .case-contact { margin-top: 28px; }
+  .case--mobile .case-contact { margin-top: 8px; }
   .case--mobile .rail--m { display: block; }
 }
 
