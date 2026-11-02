@@ -437,6 +437,56 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
   .contact__line { font-size: 16px; line-height: 24px; white-space: normal; }
 }
 
+/* phone-only carousels are hidden on larger screens */
+.rail--m { display: none; }
+
+/* ---------- phones: case pages follow the Figma mobile frames (390px) ---------- */
+@media (max-width: 767px) {
+  .back { margin-top: 36px; font-size: 16px; line-height: 22px; }
+  .case { margin-top: 32px; gap: 52px; padding-bottom: 32px; }
+  .case-head { gap: 8px; }
+  .case-head__title, .case-head__title--wide { max-width: none; font-size: 32px; line-height: 40px; }
+  .case-head__meta { color: rgba(0, 0, 0, 0.54); }
+
+  .case-flow { gap: 24px; }
+  .case-intro { gap: 24px; }
+
+  /* sections: heading on top, a thin line, then the text */
+  .section { flex-direction: column; gap: 16px; }
+  .section__title { flex: none; font-size: 26px; line-height: 32px; }
+  .section__body { flex: none; width: 100%; padding-left: 0; padding-top: 17px; gap: 12px; }
+  .section__body::before { top: 0; right: 0; bottom: auto; width: auto; height: 1px; }
+  .section--untitled { gap: 0; }
+  .section--untitled .section__title { display: none; }
+  .section--untitled .section__body { padding-top: 0; }
+  .section--untitled .section__body::before { display: none; }
+
+  .body, .points li, .body-list, .also__list li, .review__text { font-size: 16px; line-height: 22px; color: rgba(0, 0, 0, 0.54); }
+  .metrics { gap: 16px; }
+  .metric { gap: 4px; }
+  .section .metric__value { font-size: 24px; line-height: 32px; }
+  .section .metric__label { color: rgba(0, 0, 0, 0.54); }
+  .groups { gap: 24px; }
+  .review__quote { width: 37px; height: 30px; }
+  .review__role { color: rgba(27, 25, 23, 0.54); }
+  .review__text { gap: 22px; }
+  /* Browsers measure Inter a fraction of a pixel wider than Figma; a little slack keeps Figma's line breaks. */
+  .body, .points li, .body-list, .review__text p { margin-right: -3px; }
+
+  /* carousels: 16px gaps and edges, starting in line with the text */
+  .rail--band { padding-block: 16px; }
+  .rail__items { gap: 16px; }
+  .rail--scroll .rail__items { padding-right: 16px; }
+
+  /* pages with a phone layout in Figma: reorder and show only what the frame shows */
+  .case--mobile .case-intro { display: contents; }
+  .case--mobile .case-flow > *, .case--mobile .case-intro > * { order: var(--mo, 999); }
+  .case--mobile [data-m="hide"] { display: none; }
+  .case--mobile [data-m="break"] { margin-top: 30px; }
+  .case--mobile .case-contact { margin-top: 28px; }
+  .case--mobile .rail--m { display: block; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
 }

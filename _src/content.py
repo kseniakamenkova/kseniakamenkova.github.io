@@ -65,6 +65,13 @@ CASES = {
         "title": "Mobile app onboardings for adults and kids",
         "meta": ["redesign", "skyeng", "2026"],
         "description": "Onboarding redesign for the Skyeng mobile app: +1.4 pp application conversion and +21% cash-in.",
+        # Phone layout (Figma frame "onboarding page" mobile, 949:11089): order of pieces, in groups.
+        # intro:N = Overview / My role / Key metrics, block:N = item N of "blocks", mrow:N = phone-only carousel N.
+        "mobile": [
+            ["intro:0", "intro:1", "mrow:1", "intro:2"],
+            ["block:1", "mrow:2", "block:3", "mrow:3", "block:5"],
+            ["block:8"],
+        ],
         "intro": [
             ("section", "Overview", [
                 ("p", "Skyeng is the largest EdTech platform in Russia, helping both adults and children achieve their learning goals."),

@@ -9,6 +9,7 @@ sys.path.insert(0, os.path.join(ROOT, "_src"))
 from content import HOME, CASES, LINKEDIN, CV, TELEGRAM, SKYENG  # noqa: E402
 
 ROWS = json.load(open(os.path.join(ROOT, "_src", "rows.json")))
+ROWS_M = json.load(open(os.path.join(ROOT, "_src", "rows_m.json")))  # phone-only carousels
 SITE = "https://kseniakamenkova.github.io"
 
 
@@ -189,23 +190,25 @@ def body_item(item):
 def section(heading, body, hidden=False):
     inner = "".join(body_item(b) for b in body)
     title = f'<div class="section__title" aria-hidden="true"></div>' if hidden else f'<h2 class="section__title">{esc(heading)}</h2>'
-    return f"""<section class="section">
+    cls = "section section--untitled" if hidden else "section"
+    return f"""<section class="{cls}">
       {title}
       <div class="section__body">{inner}</div>
     </section>
 """
 
 
-def image_row(slug, n):
-    row = ROWS[slug][n - 1]
+def image_row(slug, n, mobile=False, attrs=""):
+    row = (ROWS_M if mobile else ROWS)[slug][n - 1]
     items = "".join(
         f'<img src="{it["src"]}" alt="" width="{round(it["w"])}" height="{round(it["h"])}" style="width:{it["w"]}px;height:{it["h"]}px;border-radius:{it["r"]}px" loading="lazy" draggable="false">'
         for it in row["items"])
-    total = sum(it["w"] for it in row["items"]) + 24 * (len(row["items"]) - 1)
-    scrolls = total > 1152.5
-    cls = "rail" + (" rail--band" if row["band"] else "") + (" rail--scroll" if scrolls else "")
+    gap, column = (16, 358) if mobile else (24, 1152)
+    total = sum(it["w"] for it in row["items"]) + gap * (len(row["items"]) - 1)
+    scrolls = total > column + 0.5
+    cls = "rail" + (" rail--band" if row["band"] else "") + (" rail--scroll" if scrolls else "") + (" rail--m" if mobile else "")
     label = ' tabindex="0" role="region" aria-label="Screens (scroll sideways)"' if scrolls else ""
-    return f'<div class="{cls}"><div class="rail__track"{label}><div class="rail__items">{items}</div></div></div>\n'
+    return f'<div class="{cls}"{attrs}><div class="rail__track"{label}><div class="rail__items">{items}</div></div></div>\n'
 
 
 def case(slug):
@@ -215,35 +218,63 @@ def case(slug):
         if i:
             meta.append('<span aria-hidden="true">·</span>')
         meta.append(ext(SKYENG, m, "meta-link") if m == "skyeng" else f"<span>{esc(m)}</span>")
-    blocks = []
-    seen = set()
-    for b in c["blocks"]:
+    # Every piece of the page gets a key; "mobile" in content.py lists the keys shown on phones, in order,
+    # grouped (groups are 54px apart, items inside a group 24px). Pieces not listed are hidden on phones.
+    pieces = []  # (key, html, wraps_in_container)
+    for i, s_ in enumerate(c["intro"]):
+        pieces.append((f"intro:{i}", section(s_[1], s_[2]), True))
+    seen = set(s_[1] for s_ in c["intro"])
+    for i, b in enumerate(c["blocks"]):
+        key = f"block:{i}"
         if b[0] == "section":
             # Figma shows only the first of several "Process" headings
-            blocks.append(section(b[1], b[2], hidden=b[1] in seen and b[1] == "Process"))
+            pieces.append((key, section(b[1], b[2], hidden=b[1] in seen and b[1] == "Process"), True))
             seen.add(b[1])
         elif b[0] == "row":
-            blocks.append(image_row(slug, b[1]))
+            pieces.append((key, ("row", b[1]), False))
         elif b[0] == "image":
             _, src, w, h, r, alt = b
-            blocks.append(f'<div class="container"><img class="wide-img" src="{src}" alt="{esc(alt)}" width="{w}" height="{h}" style="border-radius:{r}px" loading="lazy"></div>\n')
-    # sections in the flow need the container wrapper; rows are full width
-    flow = []
-    for html_part, b in zip(blocks, c["blocks"]):
-        flow.append(f'<div class="container">{html_part}</div>\n' if b[0] == "section" else html_part)
-    intro = "".join(section(s[1], s[2]) for s in c["intro"])
+            pieces.append((key, f'<img class="wide-img" src="{src}" alt="{esc(alt)}" width="{w}" height="{h}" style="border-radius:{r}px" loading="lazy">', True))
+    m_order, m_break = {}, set()
+    mobile = c.get("mobile")
+    if mobile:
+        n = 0
+        for gi, group in enumerate(mobile):
+            for ii, key in enumerate(group):
+                m_order[key] = n; n += 1
+                if gi and not ii:
+                    m_break.add(key)
+        for key in m_order:
+            if key.startswith("mrow:"):
+                pieces.append((key, ("mrow", int(key[5:])), False))
+
+    def attrs(key):
+        if not mobile:
+            return ""
+        if key not in m_order:
+            return ' data-m="hide"'
+        return f' style="--mo:{m_order[key]}"' + (' data-m="break"' if key in m_break else "")
+
+    intro_html, flow = [], []
+    for key, body, wrap in pieces:
+        if isinstance(body, tuple):
+            html_part = image_row(slug, body[1], mobile=body[0] == "mrow", attrs=attrs(key))
+        else:
+            html_part = f'<div class="container"{attrs(key)}>{body}</div>\n'
+        (intro_html if key.startswith("intro:") else flow).append(html_part)
+    intro = "".join(intro_html)
     title_cls = "case-head__title case-head__title--wide" if c.get("wide_title") else "case-head__title"
     main = f"""<div class="container">
   <a class="back" href="/"><img src="/assets/img/back-arrow.svg" alt="" width="17" height="17"><span>back</span></a>
 </div>
-<div class="case">
+<div class="case{' case--mobile' if mobile else ''}">
   <div class="container case-head">
     <h1 class="{title_cls}">{esc(c['title']).replace(chr(10), '<br>')}</h1>
     <p class="case-head__meta">{''.join(meta)}</p>
   </div>
   <div class="case-flow">
-    <div class="container case-intro">{intro}</div>
-    {''.join(flow)}    <div class="container">{contact()}</div>
+    <div class="case-intro">{intro}</div>
+    {''.join(flow)}    <div class="container case-contact">{contact()}</div>
   </div>
 </div>
 """
