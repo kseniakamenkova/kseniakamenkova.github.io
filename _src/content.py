@@ -24,14 +24,14 @@ HOME = {
             "slug": "onboarding", "year": "2026", "label": "mobile app onboarding", "img": "card-onb",
             "crop": {"box": (58, 6, 193, 388), "img": ("323.55%", "120.7%", "-112.37%", "-10.31%")},
             "mcrop": {"box": (-1, -21, 205, 412), "img": ("323.55%", "120.7%", "-112.37%", "-10.31%")},
-            "text": "Onboarding redesign for kids and adults. Our\u00a0goal was to\u00a0increase conversion from the first screen to application. I owned every stage of the work, from building the CJM to designing a new visual language and coordinating with other teams.",
+            "text": "Onboarding redesign for kids and adults. Our\u00a0goal was to\u00a0increase conversion from the first screen to\u00a0application. I owned every stage of the work, from building the CJM to designing a new visual language and coordinating with other teams.",
             "metrics": [("+1.4 pp", "application conversion"), ("+21%", "cash-in")],
         },
         {
             "slug": "payment-widget", "year": "2024", "label": "payment widget", "img": "card-pay",
             "crop": {"box": (0, 0, 272, 400), "img": ("231.37%", "118%", "-58.09%", "-9%")},
             "mcrop": {"box": (-67, -26, 287, 325), "img": ("231.37%", "153.22%", "-58.09%", "-11.69%")},
-            "text": "Redesign of the payment widget and rollout of\u00a0installment payments across all of the school’s products. Our goal was to build a new, flexible widget and increase payment conversion. I was responsible for the development and design at\u00a0all stages.",
+            "text": "Redesign of the payment widget and rollout of\u00a0installment payments across all of the school’s products. Our goal was to build a new, flexible widget and increase payment conversion. I\u00a0was responsible for the development and design at\u00a0all stages.",
             "metrics": [("+15%", "people completing payment"), ("+6%", "conversion from lead to payment")],
         },
         {
