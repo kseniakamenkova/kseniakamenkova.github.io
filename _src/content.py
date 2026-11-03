@@ -118,10 +118,17 @@ CASES = {
         ],
     },
     "referral": {
-        "title": "Referral program for both users:\nreferrers and referred",
+        "title": "Referral program for both users:\nreferrers and\u00a0referred",
         "meta": ["redesign", "skyeng", "2025"],
         "wide_title": True,
         "description": "A unified, points-based referral program for Skyeng: referral revenue grew from 4% to 11%, blended CAC down 18%.",
+        # Phone layout (Figma frame "referral page" mobile, 971:17430). The Results metrics sit in the intro, as "Metrics after launch".
+        "mobile": [
+            ["intro:0", "intro:1", "mrow:1", "block:7"],
+            ["block:1", "mrow:2", "block:3", "mrow:3", "block:5", "mrow:4"],
+            ["block:8"],
+        ],
+        "mobile_titles": {"block:7": "Metrics after launch"},
         "intro": [
             ("section", "Overview", [
                 ("p", "Skyeng's original referral program rewarded both the referrer and the referred user with free lessons.\nAs the school expanded its offering to include structured courses, the existing referral model became less suitable. Skyeng introduced a separate, cash-based referral program specifically for course students."),
@@ -156,7 +163,7 @@ CASES = {
                         "Students lacked sufficient information about how the referral program worked and what benefits both the referrer and the referred user would receive.",
                         "We identified opportunities to strengthen existing entry points and introduce new when students would be more likely to share a referral link, such as after completing a homework assignment.",
                     ], None),
-                    ("CREATED NEW REWARD SYSTEM", "Instead of having two separate referral programs, we consolidated them into a single points-based system that worked for all students.\n\nThis created a flexible, centrally managed rewards system that could work with different promotions, discounts, and products across the school. Students earned points directly in their accounts and could redeem them for other products offered by the school."),
+                    ("CREATED NEW REWARD SYSTEM", "Instead of having two separate referral programs, we consolidated them into a single points-based system that worked for all students.\nThis created a flexible, centrally managed rewards system that could work with different promotions, discounts, and products across the school. Students earned points directly in their accounts and could redeem them for other products offered by the school."),
                     ("REDESIGNED THE REFERRAL EXPERIENCE", "Redesigned the referral experience, introducing new UI patterns and elements. Users could track the status of their invitations, see how many points they had earned, and access the showcase to spend their points."),
                 ]),
             ]),
@@ -180,8 +187,8 @@ CASES = {
                 ]),
             ]),
             ("section", "Review", [
-                ("review", "Aleksandr Balin", "Head of Product Growth · ex-Skyeng", "/assets/img/reviews/ref.webp",
-                 "I highly recommend Ksenia to any tech company where user experience is a serious business priority. She combines excellent product taste with a strong commercial instinct.\n\nWe worked together at Skyeng on several projects, most notably the redesign of our referral programme. It was a high-priority initiative with a direct impact on business performance. Ksenia redesigned the end-to-end customer journey for both referrers and referred users, helping drive 60% programme adoption and contributing 11% of all new revenue through referrals.\n\nA strong product designer who understands how good experience translates into business results."),
+                ("review", "Aleksandr Balin", "Head of Product Growth · ex\u2011Skyeng", "/assets/img/reviews/ref.webp",
+                 "I highly recommend Ksenia to any tech company where user experience is a serious business priority. She combines excellent product taste with a strong commercial instinct.\n\nWe worked together at Skyeng on several projects, most notably the redesign of our referral programme. It was a high-priority initiative with a direct impact on business performance.\nKsenia redesigned the end-to-end customer journey for both referrers and referred users, helping drive 60% programme adoption and contributing 11% of all new revenue through referrals.\n\nA strong product designer who understands how good experience translates into business results."),
             ]),
         ],
     },

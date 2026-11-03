@@ -175,7 +175,7 @@ def body_item(item):
         return f'<div class="groups">{"".join(out)}</div>'
     if kind == "review":
         _, name, role, photo, txt = item
-        paras = "".join(f"<p>{esc(p)}</p>" for p in txt.split("\n\n"))
+        paras = "".join(f"<p>{esc(p).replace(chr(10), '<br>')}</p>" for p in txt.split("\n\n"))
         return f"""<figure class="review">
           <img class="review__quote" src="/assets/img/quote.svg" alt="" width="54" height="44">
           <figcaption class="review__who">
@@ -187,9 +187,10 @@ def body_item(item):
     raise ValueError(kind)
 
 
-def section(heading, body, hidden=False):
+def section(heading, body, hidden=False, mtitle=None):
     inner = "".join(body_item(b) for b in body)
-    title = f'<div class="section__title" aria-hidden="true"></div>' if hidden else f'<h2 class="section__title">{esc(heading)}</h2>'
+    label = f'<span class="t-d">{esc(heading)}</span><span class="t-m">{esc(mtitle)}</span>' if mtitle else esc(heading)
+    title = f'<div class="section__title" aria-hidden="true"></div>' if hidden else f'<h2 class="section__title">{label}</h2>'
     cls = "section section--untitled" if hidden else "section"
     return f"""<section class="{cls}">
       {title}
@@ -203,12 +204,13 @@ def image_row(slug, n, mobile=False, attrs=""):
     items = "".join(
         f'<img src="{it["src"]}" alt="" width="{round(it["w"])}" height="{round(it["h"])}" style="width:{it["w"]}px;height:{it["h"]}px;border-radius:{it["r"]}px" loading="lazy" draggable="false">'
         for it in row["items"])
-    gap, column = (16, 358) if mobile else (24, 1152)
+    gap, column = (row.get("gap", 16), 358) if mobile else (24, 1152)
+    gap_style = f' style="gap:{gap}px"' if mobile and "gap" in row else ""
     total = sum(it["w"] for it in row["items"]) + gap * (len(row["items"]) - 1)
     scrolls = total > column + 0.5
     cls = "rail" + (" rail--band" if row["band"] else "") + (" rail--scroll" if scrolls else "") + (" rail--m" if mobile else "")
     label = ' tabindex="0" role="region" aria-label="Screens (scroll sideways)"' if scrolls else ""
-    return f'<div class="{cls}"{attrs}><div class="rail__track"{label}><div class="rail__items">{items}</div></div></div>\n'
+    return f'<div class="{cls}"{attrs}><div class="rail__track"{label}><div class="rail__items"{gap_style}>{items}</div></div></div>\n'
 
 
 def case(slug):
@@ -228,7 +230,8 @@ def case(slug):
         key = f"block:{i}"
         if b[0] == "section":
             # Figma shows only the first of several "Process" headings
-            pieces.append((key, section(b[1], b[2], hidden=b[1] in seen and b[1] == "Process"), True))
+            pieces.append((key, section(b[1], b[2], hidden=b[1] in seen and b[1] == "Process",
+                                        mtitle=c.get("mobile_titles", {}).get(key)), True))
             seen.add(b[1])
         elif b[0] == "row":
             pieces.append((key, ("row", b[1]), False))
@@ -269,7 +272,7 @@ def case(slug):
 </div>
 <div class="case{' case--mobile' if mobile else ''}">
   <div class="container case-head">
-    <h1 class="{title_cls}">{esc(c['title']).replace(chr(10), '<br>')}</h1>
+    <h1 class="{title_cls}">{html.escape(c['title']).replace(chr(10), ' <br>')}</h1>
     <p class="case-head__meta">{''.join(meta)}</p>
   </div>
   <div class="case-flow">

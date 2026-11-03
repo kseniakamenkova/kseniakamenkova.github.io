@@ -439,6 +439,8 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
 
 /* phone-only carousels are hidden on larger screens */
 .rail--m { display: none; }
+/* headings worded differently on phones */
+.t-m { display: none; }
 
 /* ---------- phones: case pages follow the Figma mobile frames (390px) ---------- */
 @media (max-width: 767px) {
@@ -447,6 +449,7 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
   .case-head { gap: 8px; }
   .case-head__title, .case-head__title--wide { max-width: none; font-size: 28px; line-height: 32px; font-weight: 600; }
   .case-head__meta { color: rgba(0, 0, 0, 0.54); }
+  .case-head__title br { display: none; } /* phone titles wrap on their own, as in Figma */
 
   .case-flow { gap: 24px; }
   .case-intro { gap: 24px; }
@@ -486,6 +489,8 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
   .case--mobile [data-m="break"] { margin-top: 30px; }
   .case--mobile .case-contact { margin-top: 8px; }
   .case--mobile .rail--m { display: block; }
+  .t-d { display: none; }
+  .t-m { display: inline; }
 }
 
 @media (prefers-reduced-motion: reduce) {
