@@ -72,8 +72,6 @@ CASES = {
             ["block:1", "mrow:2", "block:3", "mrow:3", "block:5"],
             ["block:7"],
         ],
-        # Desktop shows the metrics once, as "Results" near the top.
-        "mobile_titles": {"intro:2": "Key metrics after launch"},
         "intro": [
             ("section", "Overview", [
                 ("p", "Skyeng is the largest EdTech platform in Russia, helping both adults and children achieve their learning goals."),
@@ -127,7 +125,6 @@ CASES = {
             ["block:1", "mrow:2", "block:3", "mrow:3", "block:5", "mrow:4"],
             ["block:7"],
         ],
-        "mobile_titles": {"intro:2": "Metrics after launch"},
         "intro": [
             ("section", "Overview", [
                 ("p", "Skyeng's original referral program rewarded both the referrer and the referred user with free lessons.\nAs the school expanded its offering to include structured courses, the existing referral model became less suitable. Skyeng introduced a separate, cash-based referral program specifically for course students."),
@@ -192,15 +189,12 @@ CASES = {
         "title": "Product catalog in the student's personal account",
         "meta": ["skyeng", "2026"],
         "description": "A self-service product catalog in the Skyeng student account that grew monthly recurring revenue by 3%.",
-        # Phone layout, following the onboarding and referral mobile frames (no Figma phone frame for this page yet).
-        # Carousels reuse the desktop screens at the phone carousel height (524px).
+        # Phone layout follows the onboarding and referral mobile frames; carousels come from Figma 979:3787.
         "mobile": [
             ["intro:0", "intro:1", "mrow:1", "intro:2"],
             ["block:1", "mrow:2", "block:3", "mrow:3", "block:5", "mrow:4"],
             ["block:7"],
         ],
-        # Desktop shows the metrics once, as "Results" near the top; phones keep the heading used on the other pages.
-        "mobile_titles": {"intro:2": "Key metrics after launch"},
         "wide_title": True,
         "intro": [
             ("section", "Overview", [

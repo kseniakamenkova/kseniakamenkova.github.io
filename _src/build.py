@@ -223,6 +223,10 @@ def image_row(slug, n, mobile=False, attrs=""):
     scrolls = total > column + 0.5
     cls = "rail" + (" rail--band" if row["band"] else "") + (" rail--scroll" if scrolls else "") + (" rail--m" if mobile else "")
     label = ' tabindex="0" role="region" aria-label="Screens (scroll sideways)"' if scrolls else ""
+    if row["band"] and row["band"].lower() != "#fafafa":  # some phone bands use a different grey
+        attrs += f' style="background:{row["band"]}"' if "style=" not in attrs else ""
+        if "style=" in attrs and "background" not in attrs:
+            attrs = attrs.replace('style="', f'style="background:{row["band"]};', 1)
     return f'<div class="{cls}"{attrs}><div class="rail__track"{label}><div class="rail__items"{gap_style}>{items}</div></div></div>\n'
 
 

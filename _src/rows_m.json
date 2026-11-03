@@ -85,6 +85,98 @@
    ]
   }
  ],
+ "product-catalog": [
+  {
+   "id": "3847",
+   "band": "#e6e6e6",
+   "items": [
+    {
+     "src": "/assets/img/product-catalog/m-row1-1.webp",
+     "w": 358,
+     "h": 782.1,
+     "r": 16
+    }
+   ]
+  },
+  {
+   "id": "4340",
+   "band": "#e6e6e6",
+   "items": [
+    {
+     "src": "/assets/img/product-catalog/m-row2-1.webp",
+     "w": 554,
+     "h": 524,
+     "r": 16
+    },
+    {
+     "src": "/assets/img/product-catalog/m-row2-2.webp",
+     "w": 554,
+     "h": 524,
+     "r": 16
+    },
+    {
+     "src": "/assets/img/product-catalog/m-row2-3.webp",
+     "w": 554,
+     "h": 524,
+     "r": 16
+    }
+   ]
+  },
+  {
+   "id": "4362",
+   "band": "#fafafa",
+   "items": [
+    {
+     "src": "/assets/img/product-catalog/m-row3-1.webp",
+     "w": 1103.5,
+     "h": 592.1,
+     "r": 0
+    },
+    {
+     "src": "/assets/img/product-catalog/m-row3-2.webp",
+     "w": 284.3,
+     "h": 592,
+     "r": 16
+    },
+    {
+     "src": "/assets/img/product-catalog/m-row3-3.webp",
+     "w": 800,
+     "h": 590,
+     "r": 16
+    },
+    {
+     "src": "/assets/img/product-catalog/m-row3-4.webp",
+     "w": 800,
+     "h": 590,
+     "r": 16
+    }
+   ]
+  },
+  {
+   "id": "14243",
+   "band": "#fafafa",
+   "items": [
+    {
+     "src": "/assets/img/product-catalog/m-row4-1.webp",
+     "w": 358,
+     "h": 592,
+     "r": 15.27
+    },
+    {
+     "src": "/assets/img/product-catalog/m-row4-2.webp",
+     "w": 358,
+     "h": 592,
+     "r": 15.27
+    },
+    {
+     "src": "/assets/img/product-catalog/m-row4-3.webp",
+     "w": 800,
+     "h": 590,
+     "r": 16
+    }
+   ]
+  }
+ ],
  "referral": [
   {
    "id": "21721",
