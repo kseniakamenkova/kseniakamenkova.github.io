@@ -24,7 +24,7 @@ HOME = {
             "slug": "onboarding", "year": "2026", "label": "mobile app onboarding", "img": "card-onb",
             "crop": {"box": (58, 6, 193, 388), "img": ("323.55%", "120.7%", "-112.37%", "-10.31%")},
             "mcrop": {"box": (-1, -21, 205, 412), "img": ("323.55%", "120.7%", "-112.37%", "-10.31%")},
-            "text": "Onboarding redesign for kids and adults. Our\u00a0goal was to\u00a0increase conversion from the first screen to\u00a0application. I owned every stage of the work, from building the CJM to designing a new visual language and coordinating with other teams.",
+            "text": "Onboarding redesign for kids and adults. Our\u00a0goal was to\u00a0increase conversion from the\u00a0first screen to\u00a0application. I owned every stage of the work, from building the user flows to\u00a0designing a new visual language and\u00a0coordinating with other teams.",
             "metrics": [("+1.4 pp", "application conversion"), ("+21%", "cash-in")],
         },
         {
@@ -38,7 +38,7 @@ HOME = {
             "slug": "product-catalog", "year": "2026", "label": "product catalog", "img": "card-cat",
             "crop": {"box": (-1, 0, 295, 400), "img": ("211.53%", "117%", "-51.86%", "-8.5%")},
             "mcrop": {"box": (-73, -33, 323, 438), "img": ("211.53%", "117%", "-51.86%", "-8.5%")},
-            "text": "Redesign of the product catalog in\u00a0the\u00a0student’s personal account, aimed at\u00a0increasing repeat purchases and retention. I\u00a0worked across every stage, from helping a\u00a0new product manager get up to\u00a0speed on\u00a0the\u00a0legacy catalog and building the CJM to\u00a0designing every user flow.",
+            "text": "Redesign of the product catalog in\u00a0the\u00a0student’s personal account, aimed at\u00a0increasing repeat purchases and retention. I\u00a0worked across every stage, from helping a\u00a0new product manager get up to\u00a0speed on\u00a0the\u00a0legacy catalog and building the user flows to\u00a0designing every part of catalog.",
             "metrics": [("+3%", "increased recurrent revenue to monthly base")],
         },
         {
