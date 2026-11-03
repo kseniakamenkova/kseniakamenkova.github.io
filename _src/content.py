@@ -18,26 +18,27 @@ HOME = {
         "I enjoy solving complex problems, turning chaos into structure, and finding solutions that work for both users and the business.",
     ],
     # Order follows the Figma grid (left to right, top to bottom).
+    # Card texts are copied from Figma as is, with its non-breaking spaces (\u00a0), so lines break as in the design.
     "cards": [
         {
             "slug": "onboarding", "year": "2026", "label": "mobile app onboarding", "img": "card-onb",
             "crop": {"box": (58, 6, 193, 388), "img": ("323.55%", "120.7%", "-112.37%", "-10.31%")},
             "mcrop": {"box": (-1, -21, 205, 412), "img": ("323.55%", "120.7%", "-112.37%", "-10.31%")},
-            "text": "Onboarding redesign for kids and adults. Goal: increase conversion from the first screen to application. I owned every stage of the work, from building the CJM to designing a new visual language and coordinating with other teams.",
+            "text": "Onboarding redesign for kids and adults. Our\u00a0goal was to\u00a0increase conversion from the first screen to application. I owned every stage of the work, from building the CJM to designing a new visual language and coordinating with other teams.",
             "metrics": [("+1.4 pp", "application conversion"), ("+21%", "cash-in")],
         },
         {
             "slug": "payment-widget", "year": "2024", "label": "payment widget", "img": "card-pay",
             "crop": {"box": (0, 0, 272, 400), "img": ("231.37%", "118%", "-58.09%", "-9%")},
             "mcrop": {"box": (-67, -26, 287, 325), "img": ("231.37%", "153.22%", "-58.09%", "-11.69%")},
-            "text": "Redesign of the payment widget and rollout of installment payments across all of the school’s products. Goal: build a new, flexible widget and increase payment conversion. I was responsible for the development and design at all stages.",
+            "text": "Redesign of the payment widget and rollout of\u00a0installment payments across all of the school’s products. Our goal to build a new, flexible widget and increase payment conversion. I was responsible for the development and design at\u00a0all stages.",
             "metrics": [("+15%", "people completing payment"), ("+6%", "conversion from lead to payment")],
         },
         {
             "slug": "product-catalog", "year": "2026", "label": "product catalog", "img": "card-cat",
             "crop": {"box": (-1, 0, 295, 400), "img": ("211.53%", "117%", "-51.86%", "-8.5%")},
             "mcrop": {"box": (-73, -33, 323, 438), "img": ("211.53%", "117%", "-51.86%", "-8.5%")},
-            "text": "Redesign of the product catalog in the student’s personal account, aimed at increasing repeat purchases and retention. I worked across every stage, from helping a new product manager get up to speed on the legacy catalog and building the CJM to designing every user flow.",
+            "text": "Redesign of the product catalog in\u00a0the\u00a0student’s personal account, aimed at\u00a0increasing repeat purchases and retention. I\u00a0worked across every stage, from helping a\u00a0new product manager get up to\u00a0speed on\u00a0the\u00a0legacy catalog and building the CJM to\u00a0designing every user flow.",
             "metrics": [("+3%", "increased recurrent revenue to monthly base")],
         },
         {
@@ -45,7 +46,7 @@ HOME = {
             "crop": {"box": (-3, 0, 272, 400), "img": ("229.41%", "117%", "-56.25%", "-9%")},
             "mcrop": {"box": (-67, -26, 277, 408), "img": ("229.41%", "117%", "-56.25%", "-9%")},
             "mmetrics": [("4% → 11%", "new revenue through referrals"), ("-18%", "CAC")],
-            "text": "Design of a new referral program. Goal: increase engagement with the program and grow revenue from the referral channel. I owned the research and design at every stage and across every touchpoint, for both referrers and invited users.",
+            "text": "Design of a new referral program. Our goal was to\u00a0increase engagement with\u00a0the program and\u00a0grow revenue from the referral channel. I\u00a0owned the research and design at every stage and across every touchpoint, for both referrers and invited users.",
             "metrics": [("4% → 11%", "new revenue through referrals"), ("-18%", "customer acquisition cost")],
         },
     ],

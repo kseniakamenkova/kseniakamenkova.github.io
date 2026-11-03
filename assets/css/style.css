@@ -197,7 +197,7 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
   max-width: none;
   width: var(--iw); height: var(--ih); left: var(--il); top: var(--it);
 }
-.project__card-metrics { display: none; }
+.project__mmetrics, .project__mimg { display: none; }
 .contact__br { display: none; }
 .project__text { color: var(--muted); }
 .project__line { height: 2px; border-radius: 8px; background: var(--surface); }
@@ -404,32 +404,24 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
   .project { gap: 12px; }
   .project__card { height: 403px; border-radius: 24px; }
   .project__card:hover { background: var(--surface); }
-  .project__year, .project__label { left: 20px; width: 177px; font-size: 16px; line-height: 22px; }
-  .project__year { top: 20px; }
-  .project__label { top: 50px; }
+  .project__year, .project__label { left: 20px; width: 318px; }
+  .project__year { top: 20px; font-size: 16px; line-height: 22px; }
+  .project__label { top: 50px; font-size: 18px; line-height: 24px; }
   .project__btn { display: none; }
 
-  .project__card-metrics {
-    position: absolute;
-    left: 20px;
-    top: 104px;
-    width: 170px; /* Figma: 169px; +1px so "application conversion" fits on one line in browsers too */
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .project__card-metrics .metric { gap: 4px; }
-  .project__card-metrics .metric__value { font-size: 26px; line-height: 32px; white-space: nowrap; }
-
-  /* the phone mockup sits in a 161 x 287 area at the card's right edge, as in Figma */
-  .project__media { top: 104px; width: 161px; height: 287px; overflow: visible; }
-  .project__crop { left: var(--mx); top: var(--my); width: var(--mw); height: var(--mh); }
-  .project__crop img { width: var(--miw); height: var(--mih); left: var(--mil); top: var(--mit); }
+  /* phone cards: one picture from the Figma mobile card; metrics sit under the card in two columns */
+  .project__media { display: none; }
+  .project__mimg { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
 
   .project__info { gap: 12px; }
   .project__line { order: -1; }
   .project__metrics { display: none; }
-  .project__text { font-size: 16px; line-height: 22px; color: rgba(0, 0, 0, 0.54); }
+  .project__mmetrics { order: -2; display: grid; grid-template-columns: repeat(2, 171px); gap: 16px; }
+  .project__mmetrics .metric { gap: 4px; }
+  .project__mmetrics .metric:only-child { grid-column: 1 / -1; }
+  .project__mmetrics .metric__value { font-size: 26px; line-height: 32px; white-space: nowrap; }
+  .project__mmetrics .metric__label { font-size: 16px; line-height: 22px; color: rgba(0, 0, 0, 0.54); }
+  .project__text { font-size: 16px; line-height: 22px; color: rgba(0, 0, 0, 0.54); margin-right: -0.5px; }
 
   .contact__img { width: 100px; height: 126px; }
   .contact__br { display: inline; }

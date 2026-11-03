@@ -107,10 +107,10 @@ def home():
         img_vars = f"--iw:{iw};--ih:{ih};--il:{il};--it:{it};--miw:{miw};--mih:{mih};--mil:{mil};--mit:{mit}"
         cards.append(f"""      <article class="project">
         <a class="project__card" href="/{c['slug']}/" aria-label="Open case study: {esc(c['label'])}">
+          <img class="project__mimg" src="/assets/img/home/m{c['img']}.webp" alt="" width="358" height="403" loading="lazy">
           <span class="project__year">{esc(c['year'])}</span>
           <span class="project__label">{esc(c['label'])}</span>
           <span class="project__btn" aria-hidden="true"><img src="/assets/img/arrow-card.svg" alt="" width="17" height="17"></span>
-          <div class="project__card-metrics">{mmetrics}</div>
           <span class="project__media" aria-hidden="true">
             <span class="project__crop" style="{crop_vars}">
               <img src="/assets/img/home/{c['img']}.webp" alt="" style="{img_vars}" loading="lazy">
@@ -118,9 +118,10 @@ def home():
           </span>
         </a>
         <div class="project__info">
-          <p class="project__text">{esc(c['text'])}</p>
+          <p class="project__text">{html.escape(c['text'])}</p>
           <div class="project__line"></div>
           <div class="project__metrics">{metrics}</div>
+          <div class="project__mmetrics">{mmetrics}</div>
         </div>
       </article>
 """)
