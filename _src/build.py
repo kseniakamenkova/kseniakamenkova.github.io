@@ -199,8 +199,19 @@ def section(heading, body, hidden=False, mtitle=None):
 """
 
 
+def scaled_row(row, height):
+    """A phone carousel made from a desktop row: same images, scaled to the phone screen height."""
+    k = height / max(it["h"] for it in row["items"])
+    return {"band": row["band"], "items": [
+        {"src": it["src"], "w": round(it["w"] * k, 1), "h": round(it["h"] * k, 1), "r": round(it["r"] * k, 2)}
+        for it in row["items"]]}
+
+
 def image_row(slug, n, mobile=False, attrs=""):
-    row = (ROWS_M if mobile else ROWS)[slug][n - 1]
+    if mobile and slug not in ROWS_M:  # no phone frame in Figma yet: reuse the desktop screens
+        row = scaled_row(ROWS[slug][n - 1], CASES[slug].get("mobile_row_height", 524))
+    else:
+        row = (ROWS_M if mobile else ROWS)[slug][n - 1]
     items = "".join(
         f'<img src="{it["src"]}" alt="" width="{round(it["w"])}" height="{round(it["h"])}" style="width:{it["w"]}px;height:{it["h"]}px;border-radius:{it["r"]}px" loading="lazy" draggable="false">'
         for it in row["items"])

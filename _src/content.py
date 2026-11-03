@@ -196,6 +196,13 @@ CASES = {
         "title": "Product catalog in the student's personal account",
         "meta": ["skyeng", "2026"],
         "description": "A self-service product catalog in the Skyeng student account that grew monthly recurring revenue by 3%.",
+        # Phone layout, following the onboarding and referral mobile frames (no Figma phone frame for this page yet).
+        # Carousels reuse the desktop screens at the phone carousel height (524px).
+        "mobile": [
+            ["intro:0", "intro:1", "mrow:1", "intro:2"],
+            ["block:1", "mrow:2", "block:3", "mrow:3", "block:5", "mrow:4"],
+            ["block:8"],
+        ],
         "wide_title": True,
         "intro": [
             ("section", "Overview", [
