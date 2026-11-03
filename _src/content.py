@@ -201,8 +201,10 @@ CASES = {
         "mobile": [
             ["intro:0", "intro:1", "mrow:1", "intro:2"],
             ["block:1", "mrow:2", "block:3", "mrow:3", "block:5", "mrow:4"],
-            ["block:8"],
+            ["block:7"],
         ],
+        # Desktop shows the metrics once, as "Results" near the top; phones keep the heading used on the other pages.
+        "mobile_titles": {"intro:2": "Key metrics after launch"},
         "wide_title": True,
         "intro": [
             ("section", "Overview", [
@@ -215,7 +217,7 @@ CASES = {
                     "Collaborated closely with Design Lead, Product Manager and Engineering throughout the project",
                 ]),
             ]),
-            ("section", "Key metrics after launch", [
+            ("section", "Results", [
                 ("metrics", [("+3%", "Increased monthly recurring revenue by 3% by launching a self-service product catalog, with no increase in cost of sales and no drop in ATV")]),
                 ("also", [
                     "The catalog was reused in the B2B funnel on the Ozon marketplace, increasing course purchases",
@@ -247,13 +249,6 @@ CASES = {
                 ]),
             ]),
             ("row", 4),
-            ("section", "Results", [
-                ("metrics", [("+3%", "Increased monthly recurring revenue by 3% by launching a self-service product catalog, with no increase in cost of sales and no drop in ATV")]),
-                ("also", [
-                    "The catalog was reused in the B2B funnel on the Ozon marketplace, increasing course purchases",
-                    "The catalog became the basis for the catalog on the Skysmart homepage, letting prospective students explore and buy products",
-                ]),
-            ]),
             ("section", "Review", [
                 ("review", "Ekaterina Gavrilova", "Product Manager · Skyeng", "/assets/img/reviews/cat.webp",
                  "I worked with Ksenia on launching self-pay service product calatog and on subscription renewals project, with many edge cases.\n\nShe works through every user story and asks the right questions, making sure she understands the problem before she proposes a design solution. She also doesn’t freeze and wait for the ready answers when some data or context is missing. She has excellent design taste, always thinks about both users and the business, and is very comfortable to work with.\n\nWhichever team gets her next will be extremely lucky."),

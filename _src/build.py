@@ -235,7 +235,7 @@ def case(slug):
     # grouped (groups are 54px apart, items inside a group 24px). Pieces not listed are hidden on phones.
     pieces = []  # (key, html, wraps_in_container)
     for i, s_ in enumerate(c["intro"]):
-        pieces.append((f"intro:{i}", section(s_[1], s_[2]), True))
+        pieces.append((f"intro:{i}", section(s_[1], s_[2], mtitle=c.get("mobile_titles", {}).get(f"intro:{i}")), True))
     seen = set(s_[1] for s_ in c["intro"])
     for i, b in enumerate(c["blocks"]):
         key = f"block:{i}"
