@@ -250,6 +250,14 @@ CASES = {
         "title": "Payment widget",
         "meta": ["redesign", "skyeng", "2024"],
         "description": "A flexible payment widget with installment payments for Skyeng and Skysmart: +15% of users complete payment.",
+        # Phone layout follows the other mobile frames; carousels reuse the desktop screens at 524px tall
+        # until there is a Figma mobile frame for this page.
+        "mobile": [
+            ["intro:0", "intro:1", "mrow:1", "intro:2"],
+            ["block:1", "mrow:2", "block:3", "mrow:3"],
+            ["block:5"],
+            ["block:6"],
+        ],
         "wide_title": True,
         "intro": [
             ("section", "Overview", [
