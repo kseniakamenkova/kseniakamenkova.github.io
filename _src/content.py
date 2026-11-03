@@ -31,7 +31,7 @@ HOME = {
             "slug": "payment-widget", "year": "2024", "label": "payment widget", "img": "card-pay",
             "crop": {"box": (0, 0, 272, 400), "img": ("231.37%", "118%", "-58.09%", "-9%")},
             "mcrop": {"box": (-67, -26, 287, 325), "img": ("231.37%", "153.22%", "-58.09%", "-11.69%")},
-            "text": "Redesign of the payment widget and rollout of\u00a0installment payments across all of the school’s products. Our goal to build a new, flexible widget and increase payment conversion. I was responsible for the development and design at\u00a0all stages.",
+            "text": "Redesign of the payment widget and rollout of\u00a0installment payments across all of the school’s products. Our goal was to build a new, flexible widget and increase payment conversion. I was responsible for the development and design at\u00a0all stages.",
             "metrics": [("+15%", "people completing payment"), ("+6%", "conversion from lead to payment")],
         },
         {
