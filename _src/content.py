@@ -70,8 +70,10 @@ CASES = {
         "mobile": [
             ["intro:0", "intro:1", "mrow:1", "intro:2"],
             ["block:1", "mrow:2", "block:3", "mrow:3", "block:5"],
-            ["block:8"],
+            ["block:7"],
         ],
+        # Desktop shows the metrics once, as "Results" near the top.
+        "mobile_titles": {"intro:2": "Key metrics after launch"},
         "intro": [
             ("section", "Overview", [
                 ("p", "Skyeng is the largest EdTech platform in Russia, helping both adults and children achieve their learning goals."),
@@ -85,7 +87,8 @@ CASES = {
                     "Worked with a Project manager, Head of Product Design, mobile engineering and marketing",
                 ]),
             ]),
-            ("section", "Key metrics after launch", [
+            ("section", "Results", [
+                ("p_desktop", "As a result, we achieved better results than expected, and we rolled out the onboarding to 100% of our users."),
                 ("metrics", [("+1.4 pp", "application conversion"), ("+14%", "first screen → application"), ("+21%", "Cash-In during the A/B test period")]),
             ]),
         ],
@@ -107,10 +110,6 @@ CASES = {
                 ("groups", [("PERSONALIZED OFFERS AND UPSELL", "After completing the quiz, users received personalized offers based on their answers. This helped them find what they were looking for and allowed us to increase revenue through upselling.\n\nI also designed a personalized card for each product, highlighting its key features and the benefits of applying now. This encouraged users to submit applications sooner, increasing conversions while reducing the operational costs of acquiring customers through this channel.")]),
             ]),
             ("row", 3),
-            ("section", "Results", [
-                ("p", "As a result, we achieved better results than expected, and we rolled out the onboarding to 100% of our users."),
-                ("metrics", [("+1.4 pp", "application conversion"), ("+14%", "First screen → application"), ("+21%", "Cash-In during the A/B test period")]),
-            ]),
             ("section", "Review", [
                 ("review", "Valentin Filatov", "Product manager · ex-Skyeng", "/assets/img/reviews/onb.webp",
                  "I was a Product Manager at Skyeng, and Ksenia and I worked together on redesigning the onboarding experience for the mobile app. Ksenia conducted competitor research, brought all the onboarding screens, including quizzes, together into a cohesive picture, and proposed several onboarding flows and branching options. She also clearly explained the differences between them, which made it much easier for us to make decisions.\n\nThe project had a tight deadline and a high level of uncertainty, but Ksenia worked quickly and effectively while maintaining a high quality of work.\n\nAs a result, an A/B test of the new onboarding increased application conversion by 1.4 percentage points, significantly exceeding the target of 0.3 percentage points, and we rolled it out to all users.\n\nI would highly recommend Ksenia as a designer who takes full ownership of complex challenges and drives them through to results."),
@@ -124,11 +123,11 @@ CASES = {
         "description": "A unified, points-based referral program for Skyeng: referral revenue grew from 4% to 11%, blended CAC down 18%.",
         # Phone layout (Figma frame "referral page" mobile, 971:17430). The Results metrics sit in the intro, as "Metrics after launch".
         "mobile": [
-            ["intro:0", "intro:1", "mrow:1", "block:7"],
+            ["intro:0", "intro:1", "mrow:1", "intro:2"],
             ["block:1", "mrow:2", "block:3", "mrow:3", "block:5", "mrow:4"],
-            ["block:8"],
+            ["block:7"],
         ],
-        "mobile_titles": {"block:7": "Metrics after launch"},
+        "mobile_titles": {"intro:2": "Metrics after launch"},
         "intro": [
             ("section", "Overview", [
                 ("p", "Skyeng's original referral program rewarded both the referrer and the referred user with free lessons.\nAs the school expanded its offering to include structured courses, the existing referral model became less suitable. Skyeng introduced a separate, cash-based referral program specifically for course students."),
@@ -142,8 +141,15 @@ CASES = {
                     "Collaborated closely with the Head of Skyeng, Head of Product Growth, Product Manager, Marketing and Engineering teams.",
                 ]),
             ]),
-            ("section", "Key metrics after launch", [
-                ("metrics", [("4% → 11%", "New revenue through referrals"), ("-18%", "Blended Customer Acquisition Cost"), ("0.6% → 1%", "Referral program MAU")]),
+            ("section", "Results", [
+                ("metrics", [
+                    ("4% → 11%", "New revenue through referrals"),
+                    ("-18%", "Blended Customer Acquisition Cost"),
+                    ("0.6% → 1%", "Referral program MAU"),
+                    ("1.12", "Average invitations per active referrer"),
+                    ("60% MAU", "Visited the referral program at least once"),
+                    ("20% MAU", "Copied the invitation link at least once"),
+                ]),
             ]),
         ],
         "blocks": [
@@ -176,16 +182,6 @@ CASES = {
                 ]),
             ]),
             ("row", 4),
-            ("section", "Results", [
-                ("metrics", [
-                    ("4% → 11%", "New revenue through referrals"),
-                    ("-18%", "Blended Customer Acquisition Cost"),
-                    ("0.6% → 1%", "Referral program MAU"),
-                    ("1.12", "Average invitations per active referrer"),
-                    ("60% MAU", "Visited the referral program at least once"),
-                    ("20% MAU", "Copied the invitation link at least once"),
-                ]),
-            ]),
             ("section", "Review", [
                 ("review", "Aleksandr Balin", "Head of Product Growth · ex\u2011Skyeng", "/assets/img/reviews/ref.webp",
                  "I highly recommend Ksenia to any tech company where user experience is a serious business priority. She combines excellent product taste with a strong commercial instinct.\n\nWe worked together at Skyeng on several projects, most notably the redesign of our referral programme. It was a high-priority initiative with a direct impact on business performance.\nKsenia redesigned the end-to-end customer journey for both referrers and referred users, helping drive 60% programme adoption and contributing 11% of all new revenue through referrals.\n\nA strong product designer who understands how good experience translates into business results."),
@@ -271,7 +267,7 @@ CASES = {
                     "Collaborated closely with the Product Owner, Product Managers, Engineering, Billing and Research teams throughout the project",
                 ]),
             ]),
-            ("section", "Key metrics after launch", [
+            ("section", "Results", [
                 ("metrics", [
                     ("52.7% → 55.6%", "the widget-to-payment conversion has increased on desktop and (51.3% <b>→</b> 55.5% mobile)"),
                     ("+15%", "more users go from clicking ‘Buy’ to completing payment on desktop (+13% mobile)"),
@@ -298,13 +294,6 @@ CASES = {
             ("row", 3),
             ("section", "A/B test", [
                 ("p", "We launched an A/B test and found that the new widget underperformed the existing one on mobile version. After analyzing the data and testing several hypotheses, we suspected that the issue was related to the navigation in the payment system part. \nI simplified the mobile navigation, and we ran the experiment again. This time, the new widget outperformed. Following the successful test, we rolled out the widget to all traffic across Skyeng and Skysmart."),
-            ]),
-            ("section", "Results", [
-                ("metrics", [
-                    ("52.7% → 55.6%", "the widget-to-payment conversion has increased on desktop and (51.3% <b>→</b> 55.5% mobile)"),
-                    ("+15%", "more users go from clicking ‘Buy’ to completing payment on desktop (+13% mobile)"),
-                    ("+6%", "lead-to-payment conversion"),
-                ]),
             ]),
             ("section", "Review", [
                 ("review", "Timofey Novikov", "Head of Skyeng", "/assets/img/reviews/pay.webp",

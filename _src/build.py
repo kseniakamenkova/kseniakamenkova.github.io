@@ -152,6 +152,8 @@ def body_item(item):
     kind = item[0]
     if kind == "p":
         return text_block(item[1], "body")
+    if kind == "p_desktop":  # shown on desktop only
+        return text_block(item[1], "body only-d")
     if kind == "callout":
         return f'<div class="callout"><p class="callout__label">{esc(item[1])}</p>{text_block(item[2], "body")}</div>'
     if kind == "points":

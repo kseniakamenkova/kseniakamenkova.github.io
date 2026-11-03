@@ -490,6 +490,7 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
   .case--mobile .case-contact { margin-top: 8px; }
   .case--mobile .rail--m { display: block; }
   .t-d { display: none; }
+  .only-d { display: none; }
   .t-m { display: inline; }
 }
 
