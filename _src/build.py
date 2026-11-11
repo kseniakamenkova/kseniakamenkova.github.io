@@ -72,7 +72,10 @@ def header():
 
 def contact():
     return f"""<section class="contact" aria-label="Contact">
-  <img class="contact__img" src="/assets/img/shiba.webp" alt="" width="140" height="177" loading="lazy">
+  <div class="contact__dog" aria-hidden="true">
+    <img class="contact__tail" src="/assets/img/shiba-tail.webp" alt="" width="140" height="177" loading="lazy">
+    <img class="contact__img" src="/assets/img/shiba-body.webp" alt="" width="140" height="177" loading="lazy">
+  </div>
   <div class="contact__text">
     <h2 class="contact__title">Thank you</h2>
     <p class="contact__line">Feel free to reach out via {ext(LINKEDIN, "LinkedIn", "u")}<br class="contact__br"> or telegram {ext(TELEGRAM, "@kskamenkova", "plain")}</p>

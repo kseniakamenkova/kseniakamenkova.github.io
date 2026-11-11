@@ -48,3 +48,23 @@ document.querySelectorAll('.rail--scroll .rail__track').forEach((track) => {
   update();
   window.addEventListener('scroll', update, { passive: true });
 })();
+
+// The dog in the contact block wags its tail when it scrolls into view, and again on hover or tap.
+(() => {
+  const dog = document.querySelector('.contact__dog');
+  if (!dog) return;
+  const wag = () => {
+    dog.classList.remove('is-wagging');
+    void dog.offsetWidth; // restart the animation
+    dog.classList.add('is-wagging');
+  };
+  dog.addEventListener('animationend', () => dog.classList.remove('is-wagging'));
+  dog.addEventListener('pointerenter', wag);
+  dog.addEventListener('click', wag);
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) { wag(); io.disconnect(); }
+    }, { threshold: 0.6 });
+    io.observe(dog);
+  }
+})();
