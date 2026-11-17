@@ -1,6 +1,42 @@
-// Open every page at the top, except when returning with the browser's Back/Forward buttons.
+// Blocks that exist in the same order on the English and Russian page. Switching language remembers
+// which of them was at the top of the screen (and how far into it), so the other language opens there.
+const LANG_ANCHORS = '.hello, .projects__title, .project, .contact, .back, .case-head, .case-intro > *, .case-flow > *';
+const LANG_KEY = 'lang-switch-place';
+
+function anchors() {
+  return [...document.querySelectorAll(LANG_ANCHORS)].filter((el) => el.offsetHeight > 0);
+}
+
+function readPlace() {
+  try {
+    const raw = sessionStorage.getItem(LANG_KEY);
+    if (!raw) return null;
+    sessionStorage.removeItem(LANG_KEY);
+    const place = JSON.parse(raw);
+    // only for the page the switcher pointed to, and only right after the click
+    return place.to === location.pathname && Date.now() - place.at < 15000 ? place : null;
+  } catch (_) { return null; }
+}
+
+// Open every page at the top, except when returning with Back/Forward or right after switching language.
 (() => {
   const nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+  const place = readPlace();
+  if (place) {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    const restore = () => {
+      const list = anchors();
+      const el = list[Math.min(place.i, list.length - 1)];
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo(0, Math.max(0, top + place.f * el.offsetHeight - place.v));
+    };
+    restore();
+    // text and fonts can still shift the layout a little while the page loads
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(restore);
+    window.addEventListener('load', restore);
+    return;
+  }
   if (!location.hash && (!nav || nav.type !== 'back_forward')) {
     window.scrollTo(0, 0);
     window.addEventListener('load', () => window.scrollTo(0, 0));
@@ -97,4 +133,17 @@ document.querySelectorAll('.rail--scroll .rail__track').forEach((track) => {
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) close(true); });
   document.addEventListener('click', (e) => { if (!menu.hidden && !root.contains(e.target)) close(false); });
+  // Remember the place on the page so the other language opens at the same block, not at the top.
+  opts.forEach((a) => a.addEventListener('click', () => {
+    if (a.hasAttribute('aria-current')) return;
+    const list = anchors();
+    const line = 96; // just under the sticky header
+    let i = list.findIndex((el) => el.getBoundingClientRect().bottom > line);
+    if (i < 0) i = list.length - 1;
+    const r = list[i].getBoundingClientRect();
+    const f = Math.min(1, Math.max(0, (line - r.top) / Math.max(1, r.height)));
+    try {
+      sessionStorage.setItem(LANG_KEY, JSON.stringify({ to: new URL(a.href, location.href).pathname, i, f, v: line, at: Date.now() }));
+    } catch (_) {}
+  }));
 })();
