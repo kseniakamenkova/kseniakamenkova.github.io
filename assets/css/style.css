@@ -189,9 +189,10 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
   background: var(--surface);
   overflow: hidden;
   text-decoration: none;
-  transition: background-color 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.project__card:hover { background: #f4f4f4; }
+/* same hover as the "Other projects" cards: the card lifts a little with a soft shadow */
+.project__card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08); }
 .project__year, .project__label {
   position: absolute;
   left: 24px;
@@ -489,7 +490,7 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
 
   .project { gap: 12px; }
   .project__card { height: 403px; border-radius: 24px; }
-  .project__card:hover { background: var(--surface); }
+  .project__card:hover { transform: none; box-shadow: none; }
   .project__year, .project__label { left: 20px; width: 318px; }
   .project__year { top: 20px; font-size: 16px; line-height: 22px; }
   .project__label { top: 50px; font-size: 18px; line-height: 24px; }
