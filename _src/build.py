@@ -187,7 +187,7 @@ def home():
         img_vars = f"--iw:{iw};--ih:{ih};--il:{il};--it:{it};--miw:{miw};--mih:{mih};--mil:{mil};--mit:{mit}"
         cards.append(f"""      <article class="project">
         <a class="project__card" href="{link('/' + c['slug'] + '/')}" aria-label="{ui('open')}{esc(c['label'])}">
-          <img class="project__mimg" src="/assets/img/home/m{c['img']}.webp" alt="" width="358" height="403" loading="lazy">
+          <img class="project__mimg" src="/assets/img/home/m{c['img']}.webp" alt="" width="358" height="403" loading="lazy"{f' style="top:{c["mshift"]}px"' if c.get("mshift") else ""}>
           <span class="project__year">{esc(c['year'])}</span>
           <span class="project__label">{esc(c['label'])}</span>
           <span class="project__btn" aria-hidden="true"><img src="/assets/img/arrow-card.svg" alt="" width="17" height="17"></span>
