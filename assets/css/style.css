@@ -246,6 +246,29 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
 .metric__label { font-size: 16px; line-height: 22px; color: var(--muted); }
 .metric__label b { font-weight: 700; }
 
+/* ---------- other projects (bottom of case pages) ---------- */
+.others { display: flex; flex-direction: column; gap: 40px; }
+.others__title { font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.4px; }
+.others__track { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.other { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.other__card {
+  position: relative; display: block; aspect-ratio: 358 / 403;
+  border-radius: 24px; overflow: hidden; background: var(--surface);
+  text-decoration: none; color: var(--text);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.other__card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08); }
+.other__card:focus-visible { outline: 2px solid #000; outline-offset: 3px; }
+.other__img { position: absolute; top: var(--mshift, 0px); left: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.other__year, .other__label { position: absolute; left: 20px; right: 20px; }
+.other__year { top: 20px; font-size: 16px; line-height: 22px; color: var(--faint); }
+.other__label { top: 50px; font-size: 18px; line-height: 24px; }
+.other__metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.other__metrics .metric { gap: 4px; }
+.other__metrics .metric:only-child { grid-column: 1 / -1; }
+.other__metrics .metric__value { font-size: 26px; line-height: 32px; white-space: nowrap; }
+.other__metrics .metric__label { font-size: 16px; line-height: 22px; }
+
 /* ---------- contact ---------- */
 .contact {
   background: var(--surface);
@@ -543,6 +566,18 @@ a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); ou
   .case--mobile [data-m="hide"] { display: none; }
   .case--mobile [data-m="break"] { margin-top: 30px; }
   .case--mobile .case-contact { margin-top: 8px; }
+  /* other projects: a sideways gallery on phones */
+  .others { gap: 24px; }
+  .others__title { font-size: 24px; line-height: 30px; font-weight: 500; }
+  .others__track {
+    display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
+    margin-inline: -16px; padding-inline: 16px; scroll-padding-inline: 16px; scrollbar-width: none;
+  }
+  .others__track::-webkit-scrollbar { display: none; }
+  .other { flex: none; width: 280px; scroll-snap-align: start; }
+  .other__card:hover { transform: none; box-shadow: none; }
+  /* narrower cards: the picture sits a little lower so names (two lines in Russian) clear the phone */
+  .other__img { top: calc(16px + var(--mshift, 0px)); }
   .case--mobile .rail--m { display: block; }
   .t-d { display: none; }
   .only-d { display: none; }

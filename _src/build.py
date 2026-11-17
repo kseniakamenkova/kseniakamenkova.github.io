@@ -23,10 +23,10 @@ LANGS = {
 UI = {
     "en": {"back": "back", "projects": "Projects", "thanks": "Thank you", "contact": "Feel free to reach out via {li}<br class=\"contact__br\"> or telegram {tg}",
            "also": "also:", "open": "Open case study: ", "screens": "Screens (scroll sideways)", "me": "Ksenia Kamenkova",
-           "process": "Process", "language": "Language", "profiles": "Profiles", "contact_label": "Contact"},
+           "process": "Process", "others": "Other projects", "language": "Language", "profiles": "Profiles", "contact_label": "Contact"},
     "ru": {"back": "назад", "projects": "Проекты", "thanks": "Спасибо!", "contact": "Буду рада общению — пишите мне в {li}<br class=\"contact__br\"> или tg {tg}",
            "also": "а также:", "open": "Открыть кейс: ", "screens": "Экраны (листаются вбок)", "me": "Ксения Каменкова",
-           "process": "Процесс", "language": "Язык", "profiles": "Профили", "contact_label": "Контакты"},
+           "process": "Процесс", "others": "Другие проекты", "language": "Язык", "profiles": "Профили", "contact_label": "Контакты"},
 }
 LANG = "en"  # set by build_lang()
 
@@ -225,6 +225,30 @@ def home():
 
 
 # ---------- case pages ----------
+def metric_list(ms):
+    return "".join(f'<div class="metric"><p class="metric__value">{esc(v)}</p><p class="metric__label">{esc(l)}</p></div>' for v, l in ms)
+
+
+def other_projects(slug):
+    """Bottom-of-page gallery: the other projects as small cards (picture, year, name, metrics), no descriptions."""
+    cards = []
+    for c in merged_home()["cards"]:
+        if c["slug"] == slug:
+            continue
+        cards.append(f"""<article class="other">
+          <a class="other__card" href="{link('/' + c['slug'] + '/')}" aria-label="{ui('open')}{esc(c['label'])}">
+            <img class="other__img" src="/assets/img/home/m{c['img']}.webp" alt="" width="358" height="403" loading="lazy"{f' style="--mshift:{c["mshift"]}px"' if c.get("mshift") else ""}>
+            <span class="other__year">{esc(c['year'])}</span>
+            <span class="other__label">{esc(c['label'])}</span>
+          </a>
+          <div class="other__metrics">{metric_list(c.get("mmetrics", c["metrics"]))}</div>
+        </article>""")
+    return f"""<section class="others" aria-labelledby="others-title">
+      <h2 class="others__title" id="others-title">{ui('others')}</h2>
+      <div class="others__track" tabindex="0" role="region" aria-label="{ui('others')}">{''.join(cards)}</div>
+    </section>"""
+
+
 def text_block(t, cls):
     return f'<p class="{cls}">{esc(t)}</p>'
 
@@ -375,7 +399,8 @@ def case(slug):
   </div>
   <div class="case-flow">
     <div class="case-intro">{intro}</div>
-    {''.join(flow)}    <div class="container case-contact">{contact()}</div>
+    {''.join(flow)}    <div class="container case-others"{' style="--mo:998" data-m="break"' if mobile else ''}>{other_projects(slug)}</div>
+    <div class="container case-contact">{contact()}</div>
   </div>
 </div>
 """
