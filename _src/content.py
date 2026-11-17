@@ -25,7 +25,7 @@ HOME = {
             "crop": {"box": (58, 6, 193, 388), "img": ("323.55%", "120.7%", "-112.37%", "-10.31%")},
             "mcrop": {"box": (-1, -21, 205, 412), "img": ("323.55%", "120.7%", "-112.37%", "-10.31%")},
             "text": "Onboarding redesign for kids and adults. Our\u00a0goal was to\u00a0increase conversion from the\u00a0first screen to\u00a0application. I owned every stage of the work, from building the user flows to\u00a0designing a new visual language and\u00a0coordinating with other teams.",
-            "metrics": [("+1.4 pp", "application conversion"), ("+21%", "cash-in")],
+            "metrics": [("+1.4 p.p.", "application conversion"), ("+21%", "cash-in")],
         },
         {
             "slug": "payment-widget", "year": "2024", "label": "payment widget", "img": "card-pay",
@@ -65,7 +65,7 @@ CASES = {
     "onboarding": {
         "title": "Mobile app onboardings for adults and kids",
         "meta": ["redesign", "skyeng", "2026"],
-        "description": "Onboarding redesign for the Skyeng mobile app: +1.4 pp application conversion and +21% cash-in.",
+        "description": "Onboarding redesign for the Skyeng mobile app: +1.4 p.p. application conversion and +21% cash-in.",
         # Phone layout (Figma frame "onboarding page" mobile, 949:11089): order of pieces, in groups.
         # intro:N = Overview / My role / Key metrics, block:N = item N of "blocks", mrow:N = phone-only carousel N.
         "mobile": [
@@ -88,7 +88,7 @@ CASES = {
             ]),
             ("section", "Results", [
                 ("p_desktop", "As a result, we achieved better results than expected, and we rolled out the onboarding to 100% of our users."),
-                ("metrics", [("+1.4 pp", "application conversion"), ("+14%", "first screen → application"), ("+21%", "Cash-In during the A/B test period")]),
+                ("metrics", [("+1.4 p.p.", "application conversion"), ("+14%", "first screen → application"), ("+21%", "Cash-In during the A/B test period")]),
             ]),
         ],
         "blocks": [
