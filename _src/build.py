@@ -134,7 +134,6 @@ def header(path):
     return f"""<header class="site-header">
   <nav class="site-header__links" aria-label="{ui('profiles')}">
     {ext(LINKEDIN, "LinkedIn")}
-    {ext(CV, "CV")}
   </nav>
   {lang_switch(path)}
 </header>
