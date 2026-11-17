@@ -166,6 +166,12 @@ def page(title, description, path, body_cls, main):
 
 
 # ---------- home ----------
+def card_text(t):
+    # English card texts follow Figma's own non-breaking spaces exactly; Russian ones also get the
+    # short-word rule so prepositions like «в», «с», «до» never hang at a line end.
+    return esc(t) if LANG == "ru" else html.escape(t)
+
+
 def home():
     h = merged_home()
     cards = []
@@ -192,7 +198,7 @@ def home():
           </span>
         </a>
         <div class="project__info">
-          <p class="project__text">{html.escape(c['text'])}</p>
+          <p class="project__text">{card_text(c['text'])}</p>
           <div class="project__line"></div>
           <div class="project__metrics">{metrics}</div>
           <div class="project__mmetrics">{mmetrics}</div>
