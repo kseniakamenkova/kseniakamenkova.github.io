@@ -232,9 +232,12 @@ def metric_list(ms):
 def other_projects(slug):
     """Bottom-of-page gallery: the other projects as small cards (picture, year, name, metrics), no descriptions."""
     cards = []
+    # every picture in the gallery sits at the same height: if one name needs two lines, all move down
+    shift = max(c.get("mshift", 0) for c in merged_home()["cards"])
     for c in merged_home()["cards"]:
         if c["slug"] == slug:
             continue
+        c = {**c, "mshift": shift}
         cards.append(f"""<article class="other">
           <a class="other__card" href="{link('/' + c['slug'] + '/')}" aria-label="{ui('open')}{esc(c['label'])}">
             <img class="other__img" src="/assets/img/home/m{c['img']}.webp" alt="" width="358" height="403" loading="lazy"{f' style="--mshift:{c["mshift"]}px"' if c.get("mshift") else ""}>
