@@ -68,3 +68,33 @@ document.querySelectorAll('.rail--scroll .rail__track').forEach((track) => {
     io.observe(dog);
   }
 })();
+
+// Language switcher: the button opens a small menu with both languages; Escape or a click outside closes it.
+(() => {
+  const root = document.querySelector('.lang');
+  if (!root) return;
+  const btn = root.querySelector('.lang__btn');
+  const menu = root.querySelector('.lang__menu');
+  const opts = [...menu.querySelectorAll('.lang__opt')];
+  const open = (focusFirst) => {
+    menu.hidden = false;
+    btn.setAttribute('aria-expanded', 'true');
+    if (focusFirst) (menu.querySelector('[aria-current]') || opts[0]).focus();
+  };
+  const close = (focusBtn) => {
+    menu.hidden = true;
+    btn.setAttribute('aria-expanded', 'false');
+    if (focusBtn) btn.focus();
+  };
+  btn.addEventListener('click', () => (menu.hidden ? open(false) : close(false)));
+  btn.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); open(true); }
+  });
+  menu.addEventListener('keydown', (e) => {
+    const i = opts.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown') { e.preventDefault(); opts[(i + 1) % opts.length].focus(); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); opts[(i - 1 + opts.length) % opts.length].focus(); }
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) close(true); });
+  document.addEventListener('click', (e) => { if (!menu.hidden && !root.contains(e.target)) close(false); });
+})();

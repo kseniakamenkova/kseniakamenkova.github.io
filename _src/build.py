@@ -7,19 +7,66 @@ import html, json, os, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "_src"))
 from content import HOME, CASES, LINKEDIN, CV, TELEGRAM, SKYENG  # noqa: E402
+import content_ru  # noqa: E402
 
 ROWS = json.load(open(os.path.join(ROOT, "_src", "rows.json")))
 ROWS_M = json.load(open(os.path.join(ROOT, "_src", "rows_m.json")))  # phone-only carousels
 SITE = "https://kseniakamenkova.github.io"
+
+# ---------- languages ----------
+# English lives at /, Russian at /ru/. Russian text comes from content_ru.py; layout data (crops, rows,
+# phone order) is shared with the English pages.
+LANGS = {
+    "en": {"prefix": "", "name": "English", "flag": "gb"},
+    "ru": {"prefix": "/ru", "name": "Русский", "flag": "ru"},
+}
+UI = {
+    "en": {"back": "back", "projects": "Projects", "thanks": "Thank you", "contact": "Feel free to reach out via {li}<br class=\"contact__br\"> or telegram {tg}",
+           "also": "also:", "open": "Open case study: ", "screens": "Screens (scroll sideways)", "me": "Ksenia Kamenkova",
+           "process": "Process", "language": "Language", "profiles": "Profiles", "contact_label": "Contact"},
+    "ru": {"back": "назад", "projects": "Проекты", "thanks": "Спасибо!", "contact": "Буду рада общению — пишите мне в {li}<br class=\"contact__br\"> или tg {tg}",
+           "also": "а также:", "open": "Открыть кейс: ", "screens": "Экраны (листаются вбок)", "me": "Ксения Каменкова",
+           "process": "Процесс", "language": "Язык", "profiles": "Профили", "contact_label": "Контакты"},
+}
+LANG = "en"  # set by build_lang()
+
+
+def ui(key):
+    return UI[LANG][key]
+
+
+def link(path):
+    """Site path in the current language: link("/onboarding/") -> "/ru/onboarding/" on Russian pages."""
+    return LANGS[LANG]["prefix"] + path
+
+
+def merged_home():
+    if LANG == "en":
+        return HOME
+    ru = content_ru.HOME
+    by_slug = {c["slug"]: c for c in ru["cards"]}
+    cards = [{**c, **by_slug[c["slug"]]} for c in HOME["cards"]]
+    return {**HOME, **{k: v for k, v in ru.items() if k != "cards"}, "cards": cards}
+
+
+def merged_cases():
+    if LANG == "en":
+        return CASES
+    return {slug: {**c, **content_ru.CASES[slug]} for slug, c in CASES.items()}
 
 
 SHORT_WORDS = r"a|an|the|of|to|in|on|at|by|for|and|or|but|nor|with|from|as|is|it|be|we|i|my|our|no|so|up|per|via|vs|its|if|into|onto|than|that|this|both|each"
 NBSP_RE = __import__("re").compile(r"(?<![\w’'])(" + SHORT_WORDS + r") (?=\S)", __import__("re").IGNORECASE)
 
 
+SHORT_WORDS_RU = r"а|в|во|и|к|ко|с|со|у|о|об|от|до|на|по|за|из|не|ни|но|для|при|без|что|как|или|я|мы|её|их"
+NBSP_RU_RE = __import__("re").compile(r"(?<![\w’'])(" + SHORT_WORDS_RU + r") (?=\S)", __import__("re").IGNORECASE)
+
+
 def nbsp(s):
     """Glue short words to the next word with a non-breaking space so they never hang at a line end."""
-    return NBSP_RE.sub(lambda m: m.group(1) + "\u00a0", s)
+    rx = NBSP_RU_RE if LANG == "ru" else NBSP_RE
+    return rx.sub(lambda m: m.group(1) + "\u00a0", s)
 
 
 def esc(s):
@@ -39,15 +86,19 @@ def asset_version(rel):
 
 
 def head(title, description, path):
+    """path is the language-neutral page path ("/" or "/onboarding/")."""
+    alt = "".join(f'<link rel="alternate" hreflang="{l}" href="{SITE}{LANGS[l]["prefix"]}{path}">\n' for l in LANGS)
+    alt += f'<link rel="alternate" hreflang="x-default" href="{SITE}{path}">\n'
+    path = link(path)
     return f"""<!doctype html>
-<html lang="en">
+<html lang="{LANG}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(description)}">
 <link rel="canonical" href="{SITE}{path}">
-<meta property="og:type" content="website">
+{alt}<meta property="og:type" content="website">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:url" content="{SITE}{path}">
@@ -60,25 +111,46 @@ def head(title, description, path):
 """
 
 
-def header():
+def flag(code):
+    return f'<span class="lang__flag"><img src="/assets/img/flag-{code}.svg" alt="" width="28" height="28"></span>'
+
+
+def lang_switch(path):
+    cur = LANGS[LANG]
+    chev = '<svg class="lang__chev" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 9.5 12 15.5l6.5-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    items = "".join(
+        f'<li><a class="lang__opt" href="{v["prefix"]}{path}" hreflang="{k}" lang="{k}"'
+        + (' aria-current="true"' if k == LANG else "") + f'>{flag(v["flag"])}<span>{v["name"]}</span></a></li>'
+        for k, v in LANGS.items())
+    return f"""<div class="lang">
+    <button class="lang__btn" type="button" aria-expanded="false" aria-controls="lang-menu" aria-label="{ui('language')}: {cur['name']}">
+      {flag(cur["flag"])}<span class="lang__name">{cur["name"]}</span>{chev}
+    </button>
+    <ul class="lang__menu" id="lang-menu" hidden>{items}</ul>
+  </div>"""
+
+
+def header(path):
     return f"""<header class="site-header">
-  <nav class="site-header__links" aria-label="Profiles">
+  <nav class="site-header__links" aria-label="{ui('profiles')}">
     {ext(LINKEDIN, "LinkedIn")}
     {ext(CV, "CV")}
   </nav>
+  {lang_switch(path)}
 </header>
 """
 
 
 def contact():
-    return f"""<section class="contact" aria-label="Contact">
+    line = ui("contact").format(li=ext(LINKEDIN, "LinkedIn", "u"), tg=ext(TELEGRAM, "@kskamenkova", "plain"))
+    return f"""<section class="contact" aria-label="{ui('contact_label')}">
   <div class="contact__dog" aria-hidden="true">
     <img class="contact__tail" src="/assets/img/shiba-tail.webp" alt="" width="140" height="177" loading="lazy">
     <img class="contact__img" src="/assets/img/shiba-body.webp" alt="" width="140" height="177" loading="lazy">
   </div>
   <div class="contact__text">
-    <h2 class="contact__title">Thank you</h2>
-    <p class="contact__line">Feel free to reach out via {ext(LINKEDIN, "LinkedIn", "u")}<br class="contact__br"> or telegram {ext(TELEGRAM, "@kskamenkova", "plain")}</p>
+    <h2 class="contact__title">{ui('thanks')}</h2>
+    <p class="contact__line">{line}</p>
   </div>
 </section>
 """
@@ -86,7 +158,7 @@ def contact():
 
 def page(title, description, path, body_cls, main):
     return head(title, description, path) + f"""<body class="{body_cls}">
-{header()}<main>
+{header(path)}<main>
 {main}</main>
 <script src="/assets/js/main.js?v={asset_version('assets/js/main.js')}" defer></script>
 </body>
@@ -96,7 +168,7 @@ def page(title, description, path, body_cls, main):
 
 # ---------- home ----------
 def home():
-    h = HOME
+    h = merged_home()
     cards = []
     for c in h["cards"]:
         bx, by, bw, bhh = c["crop"]["box"]
@@ -109,7 +181,7 @@ def home():
         crop_vars = f"--x:{bx}px;--y:{by}px;--w:{bw}px;--h:{bhh}px;--mx:{mbx}px;--my:{mby}px;--mw:{mbw}px;--mh:{mbh}px"
         img_vars = f"--iw:{iw};--ih:{ih};--il:{il};--it:{it};--miw:{miw};--mih:{mih};--mil:{mil};--mit:{mit}"
         cards.append(f"""      <article class="project">
-        <a class="project__card" href="/{c['slug']}/" aria-label="Open case study: {esc(c['label'])}">
+        <a class="project__card" href="{link('/' + c['slug'] + '/')}" aria-label="{ui('open')}{esc(c['label'])}">
           <img class="project__mimg" src="/assets/img/home/m{c['img']}.webp" alt="" width="358" height="403" loading="lazy">
           <span class="project__year">{esc(c['year'])}</span>
           <span class="project__label">{esc(c['label'])}</span>
@@ -131,14 +203,14 @@ def home():
     intro = "".join(f'<p>{esc(p)}</p>' for p in h["intro"])
     main = f"""<div class="container home">
   <section class="hello">
-    <div class="hello__avatar"><img src="/assets/img/home/avatar.webp" alt="Ksenia Kamenkova" width="288" height="383"></div>
+    <div class="hello__avatar"><img src="/assets/img/home/avatar.webp" alt="{ui('me')}" width="288" height="383"></div>
     <div class="hello__text">
       <h1 class="hello__title">{esc(h['name'])}</h1>
       <div class="hello__intro">{intro}</div>
     </div>
   </section>
   <section class="projects" aria-labelledby="projects-title">
-    <h2 id="projects-title" class="projects__title">Projects</h2>
+    <h2 id="projects-title" class="projects__title">{ui('projects')}</h2>
     <div class="projects__grid">
 {''.join(cards)}    </div>
   </section>
@@ -168,7 +240,7 @@ def body_item(item):
         return f'<div class="metrics">{ms}</div>'
     if kind == "also":
         lis = "".join(f"<li>{esc(t)}</li>" for t in item[1])
-        return f'<div class="also"><p class="also__title">also:</p><ul class="also__list">{lis}</ul></div>'
+        return f'<div class="also"><p class="also__title">{ui('also')}</p><ul class="also__list">{lis}</ul></div>'
     if kind == "groups":
         out = []
         for g in item[1]:
@@ -215,7 +287,7 @@ def scaled_row(row, height):
 
 def image_row(slug, n, mobile=False, attrs=""):
     if mobile and slug not in ROWS_M:  # no phone frame in Figma yet: reuse the desktop screens
-        row = scaled_row(ROWS[slug][n - 1], CASES[slug].get("mobile_row_height", 524))
+        row = scaled_row(ROWS[slug][n - 1], CASES[slug].get("mobile_row_height", 524))  # layout: same for both languages
     else:
         row = (ROWS_M if mobile else ROWS)[slug][n - 1]
     items = "".join(
@@ -226,7 +298,7 @@ def image_row(slug, n, mobile=False, attrs=""):
     total = sum(it["w"] for it in row["items"]) + gap * (len(row["items"]) - 1)
     scrolls = total > column + 0.5
     cls = "rail" + (" rail--band" if row["band"] else "") + (" rail--scroll" if scrolls else "") + (" rail--m" if mobile else "")
-    label = ' tabindex="0" role="region" aria-label="Screens (scroll sideways)"' if scrolls else ""
+    label = f' tabindex="0" role="region" aria-label="{ui("screens")}"' if scrolls else ""
     if row["band"] and row["band"].lower() != "#fafafa":  # some phone bands use a different grey
         attrs += f' style="background:{row["band"]}"' if "style=" not in attrs else ""
         if "style=" in attrs and "background" not in attrs:
@@ -235,7 +307,7 @@ def image_row(slug, n, mobile=False, attrs=""):
 
 
 def case(slug):
-    c = CASES[slug]
+    c = merged_cases()[slug]
     meta = []
     for i, m in enumerate(c["meta"]):
         if i:
@@ -251,7 +323,7 @@ def case(slug):
         key = f"block:{i}"
         if b[0] == "section":
             # Figma shows only the first of several "Process" headings
-            pieces.append((key, section(b[1], b[2], hidden=b[1] in seen and b[1] == "Process",
+            pieces.append((key, section(b[1], b[2], hidden=b[1] in seen and b[1] == ui("process"),
                                         mtitle=c.get("mobile_titles", {}).get(key)), True))
             seen.add(b[1])
         elif b[0] == "row":
@@ -289,7 +361,7 @@ def case(slug):
     intro = "".join(intro_html)
     title_cls = "case-head__title case-head__title--wide" if c.get("wide_title") else "case-head__title"
     main = f"""<div class="container">
-  <a class="back" href="/"><img src="/assets/img/back-arrow.svg" alt="" width="17" height="17"><span>back</span></a>
+  <a class="back" href="{link('/')}"><img src="/assets/img/back-arrow.svg" alt="" width="17" height="17"><span>{ui('back')}</span></a>
 </div>
 <div class="case{' case--mobile' if mobile else ''}">
   <div class="container case-head">
@@ -302,7 +374,7 @@ def case(slug):
   </div>
 </div>
 """
-    return page(f"{c['title'].replace(chr(10), ' ')} — Ksenia Kamenkova", c["description"], f"/{slug}/", "page-case", main)
+    return page(f"{c['title'].replace(chr(10), ' ')} — {ui('me')}", c["description"], f"/{slug}/", "page-case", main)
 
 
 def relativize(text, depth, root_page=False):
@@ -340,6 +412,9 @@ def write(path, text):
     print("wrote", path)
 
 
-write("index.html", home())
-for slug in CASES:
-    write(f"{slug}/index.html", case(slug))
+for LANG in LANGS:
+    base = LANGS[LANG]["prefix"].lstrip("/")
+    base = base + "/" if base else ""
+    write(f"{base}index.html", home())
+    for slug in CASES:
+        write(f"{base}{slug}/index.html", case(slug))
